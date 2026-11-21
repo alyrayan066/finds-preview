@@ -23,7 +23,7 @@ jobs:
           python - <<'PY'
           from pathlib import Path, PurePosixPath
           import shutil, zipfile
-          with zipfile.ZipFile('finds-site.zip') as bundle:
+          with zipfile.ZipFile('finds-site-updated.zip') as bundle:
               for entry in bundle.infolist():
                   rel = PurePosixPath(entry.filename.replace(chr(92), '/'))
                   if rel.is_absolute() or '..' in rel.parts:
@@ -45,7 +45,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: { steps.deployment.outputs.page_url }
     runs-on: ubuntu-latest
     needs: build
     steps:
